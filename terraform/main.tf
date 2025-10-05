@@ -38,7 +38,7 @@ resource "random_id" "bucket_suffix" {
 }
 
 resource "aws_s3_bucket_public_access_block" "streaming_bucket_pab" {
-  bucket = aws_s3_bucket.streaming_bucket.id
+  bucket                  = aws_s3_bucket.streaming_bucket.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -98,14 +98,14 @@ resource "aws_cloudfront_distribution" "streaming_distribution" {
     cached_methods         = ["GET", "HEAD"]
     trusted_key_groups     = [aws_cloudfront_key_group.video_keys.id]
     compress               = false
-    
+
     forwarded_values {
       query_string = false
       cookies {
         forward = "none"
       }
     }
-    
+
     min_ttl     = 0
     default_ttl = 86400
     max_ttl     = 31536000
