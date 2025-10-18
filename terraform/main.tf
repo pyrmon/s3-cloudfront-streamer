@@ -10,7 +10,7 @@ terraform {
 variable "aws_region" {
   description = "AWS region for deployment"
   type        = string
-  default     = "ap-northeast-1"
+  default     = "eu-central-1"
 }
 
 variable "bucket_prefix" {
@@ -22,7 +22,7 @@ variable "bucket_prefix" {
 variable "public_key_file" {
   description = "Path to CloudFront public key file"
   type        = string
-  default     = "public_key.pem"
+  default     = "../public_key.pem"
 }
 
 provider "aws" {

@@ -29,11 +29,15 @@ class TestUpload(unittest.TestCase):
     @patch.dict(os.environ, {}, clear=True)
     def test_missing_bucket_name(self):
         """Test behavior when S3_BUCKET_NAME is not set"""
-        from upload_to_s3 import upload_videos
-        
-        with patch('builtins.print') as mock_print:
-            upload_videos('/fake/path')
-            mock_print.assert_any_call("❌ S3_BUCKET_NAME environment variable not set")
+        with patch('dotenv.load_dotenv'):
+            # Import after patching environment
+            import upload_to_s3
+            import importlib
+            importlib.reload(upload_to_s3)
+            
+            with patch('builtins.print') as mock_print:
+                upload_to_s3.upload_videos('/fake/path')
+                mock_print.assert_any_call("❌ S3_BUCKET_NAME environment variable not set")
 
 if __name__ == '__main__':
     unittest.main()

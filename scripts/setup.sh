@@ -89,13 +89,17 @@ PUBLIC_KEY_FILE=./public_key.pem
 URL_EXPIRATION_DAYS=1
 EOF
 
-# Install Python dependencies
-echo "🐍 Installing Python dependencies..."
-pip3 install -r requirements.txt
+# Setup Python virtual environment
+echo "🐍 Setting up Python virtual environment..."
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+fi
+source venv/bin/activate
+pip install -r requirements.txt
 
 # Run tests
 echo "🧪 Running tests..."
-python3 run_tests.py
+python run_tests.py
 
 echo ""
 echo "🎉 Setup complete!"
